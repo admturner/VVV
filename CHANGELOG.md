@@ -4,6 +4,16 @@ title: Changelog
 permalink: /docs/en-US/changelog/
 ---
 
+## 2.6.0-ubuntu1604 (WIP)
+
+### Enhancements
+
+* Switch default Ubuntu box from 14.04 to 16.04, but only for VirtualBox. Have not tested the Xenial box with other providers yet, so Parallels, VMware Fusion, VMWare Workstation, and Hyper-V are temporarily unsupported. This now uses the Canonical-provided `ubuntu/xenial` box, which is about 285 MB. This is currently working with the following setups:
+  - System OS:  Ubuntu 18.04 x86_64
+    VVV:        v2.4.x
+    Vagrant:    2.2.2
+    VirtualBox: 5.2.x
+
 ## 2.6.0 ( TBD )
 
 ### Enhancements

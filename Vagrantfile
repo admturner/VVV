@@ -321,6 +321,9 @@ Vagrant.configure("2") do |config|
     # see https://github.com/hashicorp/vagrant/issues/7648
     v.customize ['modifyvm', :id, '--cableconnected1', 'on']
 
+    # see https://github.com/hashicorp/vagrant/issues/9425
+    v.customize ['modifyvm', :id, '--uartmode1', 'disconnected']
+
     v.customize ["modifyvm", :id, "--rtcuseutc", "on"]
     v.customize ["modifyvm", :id, "--audio", "none"]
     v.customize ["modifyvm", :id, "--paravirtprovider", "kvm"]
@@ -353,7 +356,7 @@ Vagrant.configure("2") do |config|
     v.enable_virtualization_extensions = true
     v.linked_clone = true
   end
-  
+
   # Auto Download Vagrant plugins, supported from Vagrant 2.2.0
   if !Vagrant.has_plugin?("vagrant-hostsupdater") then
       if File.file?(File.join(vagrant_dir, 'vagrant-hostsupdater.gem')) then
@@ -380,13 +383,13 @@ Vagrant.configure("2") do |config|
 
   # Default Ubuntu Box
   #
-  # This box is provided by Ubuntu vagrantcloud.com and is a nicely sized (332MB)
-  # box containing the Ubuntu 14.04 Trusty 64 bit release. Once this box is downloaded
-  # to your host computer, it is cached for future use under the specified box name.
-  # 
-  # Note: We would like to update this to a newer box, but a naive update would
-  # destroy everybodies databases, it's not as simple as it first seems
-  config.vm.box = "ubuntu/trusty64"
+  ## This box is provided by Ubuntu vagrantcloud.com containing the Ubuntu 16.04
+  # LTS Xenial 64 bit release. Once this box is downloaded to your host computer,
+  # it is cached for future use under the specified box name.
+  config.vm.box = "ubuntu/xenial64"
+
+  # This is a test configuration. Have not tested the Xenial box with other
+  # providers.
 
   # If we're at a contributor day, switch the base box to the prebuilt one
   if defined? vvv_config['vm_config']['wordcamp_contributor_day_box'] then
@@ -396,24 +399,24 @@ Vagrant.configure("2") do |config|
   end
 
   # The Parallels Provider uses a different naming scheme.
-  config.vm.provider :parallels do |v, override|
-    override.vm.box = "parallels/ubuntu-14.04"
-  end
+  # config.vm.provider :parallels do |v, override|
+  #   override.vm.box = "parallels/ubuntu-14.04"
+  # end
 
   # The VMware Fusion Provider uses a different naming scheme.
-  config.vm.provider :vmware_fusion do |v, override|
-    override.vm.box = "puphpet/ubuntu1404-x64"
-  end
+  # config.vm.provider :vmware_fusion do |v, override|
+  #    override.vm.box = "puphpet/ubuntu1404-x64"
+  # end
 
   # VMWare Workstation can use the same package as Fusion
-  config.vm.provider :vmware_workstation do |v, override|
-    override.vm.box = "puphpet/ubuntu1404-x64"
-  end
+  # config.vm.provider :vmware_workstation do |v, override|
+  #    override.vm.box = "puphpet/ubuntu1404-x64"
+  # end
 
   # Hyper-V uses a different base box.
-  config.vm.provider :hyperv do |v, override|
-    override.vm.box = "bento/ubuntu-14.04"
-  end
+  # config.vm.provider :hyperv do |v, override|
+  #    override.vm.box = "bento/ubuntu-14.04"
+  # end
 
   config.vm.hostname = "vvv"
 
